@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using NotesAPI.Models;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace NotesAPI
 {
@@ -31,6 +32,11 @@ namespace NotesAPI
 
             services.AddDbContext<NotesAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("NotesAPIContext")));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +50,13 @@ namespace NotesAPI
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();
