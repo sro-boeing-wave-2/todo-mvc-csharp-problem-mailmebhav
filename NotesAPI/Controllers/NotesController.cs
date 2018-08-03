@@ -50,22 +50,8 @@ namespace NotesApi.Controllers
             return Ok(notes);
         }
 
-    //    var existingNote = _context.Note.Include(n => n.Labels).Include(n => n.Checklists).Where(s => s.ID == note.ID).FirstOrDefault<Note>();
-
-    //               if (existingNote != null)
-    //               {
-    //                   existingNote.Title = note.Title;
-    //                   existingNote.Text = note.Text;
-    //                   for(int i =0; i<existingNote.Checklists.Count; i++)
-    //                   existingNote.Checklists[i].Item = note.Checklists[i].Item;
-    //                   for (int i = 0; i<existingNote.Labels.Count; i++)
-    //                   existingNote.Labels[i].Name = note.Labels[i].Name;
-    //                   existingNote.IsPinned = note.IsPinned;
-    //                   await _context.SaveChangesAsync();
-    //}
-
-    // PUT: api/Notes/5
-    [HttpPut("{id}")]
+        // PUT: api/Notes/5
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutNotes([FromRoute] int id, [FromBody] Note notes)
         {
             if (!ModelState.IsValid)
@@ -77,11 +63,9 @@ namespace NotesApi.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(notes).State = EntityState.Modified;
-
             try
             {
+                _context.Note.Update(notes);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -127,7 +111,7 @@ namespace NotesApi.Controllers
             {
                 return NotFound();
             }
-            
+
             _context.Note.Remove(notes);
             await _context.SaveChangesAsync();
 
@@ -157,7 +141,5 @@ namespace NotesApi.Controllers
         {
             return _context.Note.Any(e => e.ID == id);
         }
-
-
     }
 }
