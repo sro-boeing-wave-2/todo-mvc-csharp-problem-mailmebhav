@@ -22,46 +22,15 @@ namespace NotesApi.Controllers
         {
             _context = context;
         }
-        // GET: api/Notes
-        //[HttpGet]
-        //public IEnumerable<Note> GetNotes()
-        //{
-        //    return _context.Note.Include(n => n.Checklists).Include(n => n.Labels);
-        //}
 
-        //GET: api/Notes
+        //GET: api/Notes or GET: api/Notes?{query}
         [HttpGet]
-        public async Task<IActionResult> GetNotes([FromQuery] string title, [FromQuery] string label)
+        public async Task<IActionResult> GetNotes([FromQuery] string title, [FromQuery] string label, [FromQuery] bool? pinned)
         {
-            if (title == null && label == null)
-            {
-                return Ok(_context.Note.Include(n => n.Checklists).Include(n => n.Labels));
-            }
-            else if (title == null)
-            {
-                List<Note> result = await _context.Note.Include(n => n.Checklists).Include(n => n.Labels).Where(x => x.Labels.Any(y => y.LabelName == label)).ToListAsync();
-                return Ok(result);
-            }
-            else
-            {
-                List<Note> result = await _context.Note.Include(n => n.Checklists).Include(n => n.Labels).Where(x => x.Title == title).ToListAsync();
-                return Ok(result);
-            }
+            var result = await _context.Note.Include(n => n.Checklists).Include(n => n.Labels)
+                .Where(x => ((title == null || x.Title == title) && (label == null || x.Labels.Any(y => y.LabelName == label)) && (pinned == null || x.Pinned == pinned))).ToListAsync();
+            return Ok(result);
         }
-
-        //// GET: api/Notes?
-        //[HttpGet]
-        //public IEnumerable<Notes> GetNotes([FromQuery] string query)
-        //{
-        //    if (query == null)
-        //    {
-        //        return _context.Notes.Include(n => n.Checklists).Include(n => n.Labels);
-        //    }
-        //    else
-        //    {
-        //        foreach(String key in Req)
-        //    }
-        //}
 
         // GET: api/Notes/5
         [HttpGet("{id:int}")]
@@ -81,26 +50,22 @@ namespace NotesApi.Controllers
             return Ok(notes);
         }
 
-        //// GET: api/Notes/First Note
-        //[HttpGet("{title:regex(^[[A-Za-z0-9 _]]*[[A-Za-z0-9]][[A-Za-z0-9 _]]*$)}")]
-        //public async Task<IActionResult> GetNotes([FromRoute] string title)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+    //    var existingNote = _context.Note.Include(n => n.Labels).Include(n => n.Checklists).Where(s => s.ID == note.ID).FirstOrDefault<Note>();
 
-        //    var notes = await _context.Notes.Include(n => n.Labels).Include(n => n.Checklists).Where(x => x.Title.ToLower() == title.ToLower()).ToListAsync();
-        //    if (notes == null)
-        //    {
-        //        return NotFound();
-        //    }
+    //               if (existingNote != null)
+    //               {
+    //                   existingNote.Title = note.Title;
+    //                   existingNote.Text = note.Text;
+    //                   for(int i =0; i<existingNote.Checklists.Count; i++)
+    //                   existingNote.Checklists[i].Item = note.Checklists[i].Item;
+    //                   for (int i = 0; i<existingNote.Labels.Count; i++)
+    //                   existingNote.Labels[i].Name = note.Labels[i].Name;
+    //                   existingNote.IsPinned = note.IsPinned;
+    //                   await _context.SaveChangesAsync();
+    //}
 
-        //    return Ok(notes);
-        //}
-
-        // PUT: api/Notes/5
-        [HttpPut("{id}")]
+    // PUT: api/Notes/5
+    [HttpPut("{id}")]
         public async Task<IActionResult> PutNotes([FromRoute] int id, [FromBody] Note notes)
         {
             if (!ModelState.IsValid)
@@ -157,14 +122,32 @@ namespace NotesApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            var notes = await _context.Note.FindAsync(id);
+            var notes = await _context.Note.Include(x => x.Checklists).Include(x => x.Labels).SingleOrDefaultAsync(x => (x.ID == id));
             if (notes == null)
             {
                 return NotFound();
             }
-
+            
             _context.Note.Remove(notes);
+            await _context.SaveChangesAsync();
+
+            return Ok(notes);
+        }
+
+        // DELETE: api/Notes/?{query}
+        [HttpDelete]
+        public async Task<IActionResult> DeleteNotes([FromQuery] string title)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var notes = await _context.Note.Include(x => x.Checklists).Include(x => x.Labels).Where(x => (x.Title == title)).ToListAsync();
+            if (notes == null)
+            {
+                return NotFound();
+            }
+            _context.Note.RemoveRange(notes);
             await _context.SaveChangesAsync();
 
             return Ok(notes);
@@ -174,5 +157,7 @@ namespace NotesApi.Controllers
         {
             return _context.Note.Any(e => e.ID == id);
         }
+
+
     }
 }

@@ -12,7 +12,8 @@ namespace NotesAPI.Models
             : base(options)
         {
         }
-
-        public DbSet<NotesAPI.Models.Note> Note { get; set; }
+        public DbSet<Note> Note { get; set; }
+        public DbSet<Label> Label { get; set; }
+        public DbSet<Checklist> Checklist { get; set; }
     }
 }
