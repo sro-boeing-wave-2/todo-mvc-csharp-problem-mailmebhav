@@ -1,0 +1,14 @@
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.Tests.deps.json
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.Tests.runtimeconfig.json
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.Tests.runtimeconfig.dev.json
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.Tests.dll
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcoreapp2.1\NotesAPI.Tests.csprojAssemblyReference.cache
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcoreapp2.1\NotesAPI.Tests.csproj.CoreCompileInputs.cache
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcoreapp2.1\NotesAPI.Tests.AssemblyInfoInputs.cache
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcoreapp2.1\NotesAPI.Tests.AssemblyInfo.cs
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.dll
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.pdb
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcoreapp2.1\NotesAPI.Tests.csproj.CopyComplete

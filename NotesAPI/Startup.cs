@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using NotesAPI.Models;
 using Swashbuckle.AspNetCore.Swagger;
+using NotesApi.Controllers;
+using NotesAPI.Services;
 
 namespace NotesAPI
 {
@@ -32,6 +34,8 @@ namespace NotesAPI
 
             services.AddDbContext<NotesAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("NotesAPIContext")));
+
+            services.AddScoped<INotesService , NotesService>();
 
             services.AddSwaggerGen(c =>
             {

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using NotesAPI.Models;
 using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using Microsoft.EntityFrameworkCore.Internal;
+using NotesAPI.Services;
 
 namespace NotesApi.Controllers
 {
@@ -17,18 +18,18 @@ namespace NotesApi.Controllers
     public class NotesController : ControllerBase
     {
         private readonly NotesAPIContext _context;
+        private INotesService _NotesServices;
 
-        public NotesController(NotesAPIContext context)
+        public NotesController(INotesService notesService)
         {
-            _context = context;
+            _NotesServices = notesService;
         }
 
         //GET: api/Notes or GET: api/Notes?{query}
         [HttpGet]
         public async Task<IActionResult> GetNotes([FromQuery] string title, [FromQuery] string label, [FromQuery] bool? pinned)
         {
-            var result = await _context.Note.Include(n => n.Checklists).Include(n => n.Labels)
-                .Where(x => ((title == null || x.Title == title) && (label == null || x.Labels.Any(y => y.LabelName == label)) && (pinned == null || x.Pinned == pinned))).ToListAsync();
+            var result = await _NotesServices.GetNotes(title, label, pinned);
             return Ok(result);
         }
 
@@ -41,7 +42,8 @@ namespace NotesApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var notes = await _context.Note.Include(n => n.Labels).Include(n => n.Checklists).SingleOrDefaultAsync(x => x.ID == id);
+            var notes = await _NotesServices.GetNotes(id);
+
             if (notes == null)
             {
                 return NotFound();
@@ -65,8 +67,7 @@ namespace NotesApi.Controllers
             }
             try
             {
-                _context.Note.Update(notes);
-                await _context.SaveChangesAsync();
+                await _NotesServices.PutNotes(id, notes);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -92,8 +93,7 @@ namespace NotesApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Note.Add(notes);
-            await _context.SaveChangesAsync();
+            await _NotesServices.PostNotes(notes);
 
             return CreatedAtAction("GetNotes", new { id = notes.ID }, notes);
         }
@@ -106,14 +106,11 @@ namespace NotesApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var notes = await _context.Note.Include(x => x.Checklists).Include(x => x.Labels).SingleOrDefaultAsync(x => (x.ID == id));
+            var notes = await _NotesServices.DeleteNotes(id);
             if (notes == null)
             {
                 return NotFound();
             }
-
-            _context.Note.Remove(notes);
-            await _context.SaveChangesAsync();
 
             return Ok(notes);
         }
@@ -126,20 +123,19 @@ namespace NotesApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var notes = await _context.Note.Include(x => x.Checklists).Include(x => x.Labels).Where(x => (x.Title == title)).ToListAsync();
+            var notes = await _NotesServices.DeleteNotes(title);
             if (notes == null)
             {
                 return NotFound();
             }
-            _context.Note.RemoveRange(notes);
-            await _context.SaveChangesAsync();
 
             return Ok(notes);
         }
 
-        private bool NotesExists(int id)
+        public bool NotesExists(int id)
         {
-            return _context.Note.Any(e => e.ID == id);
+            var result = _NotesServices.NotesExists(id);
+            return result;
         }
     }
 }
