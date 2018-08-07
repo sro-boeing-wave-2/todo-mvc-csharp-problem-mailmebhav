@@ -3,20 +3,30 @@ using NotesAPI.Models;
 using NotesAPI.Services;
 using System;
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Specialized;
+using Moq;
+using Microsoft.AspNetCore.Http;
+using NSuperTest;
+using Microsoft.EntityFrameworkCore;
 
 namespace NotesAPI.Tests
 {
     public class NotesAPIUnitTest
     {
-        //private NotesController _notesController;
-        //private INotesService _notesService;
+        private Server server;
+        public NotesAPIUnitTest()
+        {
+            server = new Server("https://localhost:44303/api/Notes");
+        }
 
-        //public 
-
-        //[Fact]
-        //public void Test1()
-        //{
-        //    var controller = new NotesController(new NotesService(NotesAPIContext ));
-        //}
+        [Fact]
+        public void ShouldGiveValues()
+        {
+            server
+                .Get("/api/Notes")
+                .Expect(200)
+                .End();
+        }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NotesAPI.Models
 {
-    public class NotesAPIContext : DbContext
+    public class NotesAPIContext : DbContext, INotesAPIContext
     {
         public NotesAPIContext (DbContextOptions<NotesAPIContext> options)
             : base(options)
@@ -15,5 +15,10 @@ namespace NotesAPI.Models
         public DbSet<Note> Note { get; set; }
         public DbSet<Label> Label { get; set; }
         public DbSet<Checklist> Checklist { get; set; }
+    }
+
+    internal interface INotesAPIContext
+    {
+
     }
 }

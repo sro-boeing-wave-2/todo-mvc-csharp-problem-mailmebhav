@@ -17,37 +17,37 @@ namespace NotesAPI.Services
         {
             _context = context;
         }
-        public async Task<IEnumerable<Note>> GetNotes([FromQuery] string title, [FromQuery] string label, [FromQuery] bool? pinned)
+        public async Task<IEnumerable<Note>> GetNotes(string title, string label, bool? pinned)
         {
             var result = await _context.Note.Include(n => n.Checklists).Include(n => n.Labels)
             .Where(x => ((title == null || x.Title == title) && (label == null || x.Labels.Any(y => y.LabelName == label)) && (pinned == null || x.Pinned == pinned))).ToListAsync();
             return result;
         }
 
-        public async Task<Note> GetNotes([FromRoute] int id)
+        public async Task<Note> GetNotesservice(int id)
         {
             var notes = await _context.Note.Include(n => n.Labels).Include(n => n.Checklists).SingleOrDefaultAsync(x => x.ID == id);
             return notes;
         }
 
-        public async Task<Note> PutNotes([FromRoute] int id, [FromBody] Note notes)
+        public async Task<Note> PutNotes(Note notes)
         {
             _context.Note.Update(notes);
             await _context.SaveChangesAsync();
             return await Task.FromResult(notes);
         }
 
-        public async Task<Note> PostNotes([FromBody] Note notes)
+        public async Task<Note> PostNotes(Note notes)
         {
             _context.Note.Add(notes);
             await _context.SaveChangesAsync();
             return await Task.FromResult(notes);
         }
 
-        public async Task<Note> DeleteNotes([FromRoute] int id)
+        public async Task<Note> DeleteNotes(int id)
         {
             var notes = await _context.Note.Include(x => x.Checklists).Include(x => x.Labels).SingleOrDefaultAsync(x => (x.ID == id));
-            if(notes == null)
+            if (notes == null)
             {
                 return await Task.FromResult<Note>(null);
             }
@@ -56,7 +56,7 @@ namespace NotesAPI.Services
             return notes;
         }
 
-        public async Task<IEnumerable<Note>> DeleteNotes([FromQuery] string title)
+        public async Task<IEnumerable<Note>> DeleteNotes(string title)
         {
             var notes = await _context.Note.Include(x => x.Checklists).Include(x => x.Labels).Where(x => (x.Title == title)).ToListAsync();
             if (notes == null)
@@ -78,12 +78,12 @@ namespace NotesAPI.Services
 
     public interface INotesService
     {
-        Task<IEnumerable<Note>> GetNotes([FromQuery] string title, [FromQuery] string label, [FromQuery] bool? pinned);
-        Task<Note> GetNotes([FromRoute] int id);
-        Task<Note> PutNotes([FromRoute] int id, [FromBody] Note notes);
-        Task<Note> PostNotes([FromBody] Note notes);
-        Task<Note> DeleteNotes([FromRoute] int id);
-        Task<IEnumerable<Note>> DeleteNotes([FromQuery] string title);
+        Task<IEnumerable<Note>> GetNotes(string title, string label, bool? pinned);
+        Task<Note> GetNotesservice(int id);
+        Task<Note> PutNotes(Note notes);
+        Task<Note> PostNotes(Note notes);
+        Task<Note> DeleteNotes(int id);
+        Task<IEnumerable<Note>> DeleteNotes(string title);
         bool NotesExists(int id);
     }
 }

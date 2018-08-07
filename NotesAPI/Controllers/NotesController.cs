@@ -27,7 +27,7 @@ namespace NotesApi.Controllers
 
         //GET: api/Notes or GET: api/Notes?{query}
         [HttpGet]
-        public async Task<IActionResult> GetNotes([FromQuery] string title, [FromQuery] string label, [FromQuery] bool? pinned)
+        public async Task<IActionResult> GetNotes([FromQuery] string title = null, [FromQuery] string label = null, [FromQuery] bool? pinned = null)
         {
             var result = await _NotesServices.GetNotes(title, label, pinned);
             return Ok(result);
@@ -42,7 +42,7 @@ namespace NotesApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var notes = await _NotesServices.GetNotes(id);
+            var notes = await _NotesServices.GetNotesservice(id);
 
             if (notes == null)
             {
@@ -67,7 +67,7 @@ namespace NotesApi.Controllers
             }
             try
             {
-                await _NotesServices.PutNotes(id, notes);
+                await _NotesServices.PutNotes(notes);
             }
             catch (DbUpdateConcurrencyException)
             {

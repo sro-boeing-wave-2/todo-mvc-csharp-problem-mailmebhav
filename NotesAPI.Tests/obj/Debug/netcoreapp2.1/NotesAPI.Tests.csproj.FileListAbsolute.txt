@@ -12,3 +12,6 @@ E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcore
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.dll
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.pdb
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcoreapp2.1\NotesAPI.Tests.csproj.CopyComplete
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\bin\Debug\netcoreapp2.1\NotesAPI.Tests.pdb
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcoreapp2.1\NotesAPI.Tests.dll
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI.Tests\obj\Debug\netcoreapp2.1\NotesAPI.Tests.pdb
