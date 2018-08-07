@@ -20,13 +20,13 @@ namespace NotesAPI.Tests
             server = new Server("https://localhost:44303/api/Notes");
         }
 
-        [Fact]
-        public void ShouldGiveValues()
-        {
-            server
-                .Get("/api/Notes")
-                .Expect(200)
-                .End();
-        }
+        //[Fact]
+        //public void ShouldGiveValues()
+        //{
+        //    server
+        //        .Get("/api/Notes")
+        //        .Expect(200)
+        //        .End();
+        //}
     }
 }
