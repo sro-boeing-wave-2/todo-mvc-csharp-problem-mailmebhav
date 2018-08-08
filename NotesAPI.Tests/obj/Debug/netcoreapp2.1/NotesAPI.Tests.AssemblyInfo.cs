@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("NotesAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "E:\\Workspace\\todo-mvc-csharp-problem-mailmebhav\\NotesAPI", "NotesAPI.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("NotesAPI.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

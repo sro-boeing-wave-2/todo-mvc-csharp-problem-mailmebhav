@@ -53,6 +53,7 @@ namespace NotesAPI.Tests
             //Assert.True(Assert.Equal(title,result.Result))
             Assert.Equal(200, objectResult.StatusCode);
             //Assert.True(objectResultValue.TrueForAll(x => x.Title == title));
+            //Assert.True(objectResultValue.TrueForAll(x => x.Pinned == title));
             //Assert.Equal("Note 1", result.Result.Should().BeEquivalentTo())
         }
         

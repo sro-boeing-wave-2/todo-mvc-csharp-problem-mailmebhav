@@ -12,7 +12,6 @@ E:\Workspace\NotesAPI\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.RazorTargetAssem
 E:\Workspace\NotesAPI\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.pdb
 E:\Workspace\NotesAPI\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.dll
 E:\Workspace\NotesAPI\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.pdb
-E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.csprojAssemblyReference.cache
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.csproj.CoreCompileInputs.cache
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.RazorAssemblyInfo.cache
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.RazorAssemblyInfo.cs
@@ -26,3 +25,4 @@ E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.dll
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.pdb
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.RazorTargetAssemblyInfo.cache
+E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.csprojAssemblyReference.cache
