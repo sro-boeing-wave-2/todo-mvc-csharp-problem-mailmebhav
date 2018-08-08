@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System.Text;
@@ -8,6 +9,7 @@ using Xunit;
 using NotesAPI.Models;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace NotesAPI.Tests
 {
@@ -25,7 +27,7 @@ namespace NotesAPI.Tests
             );
 
             _client = host.CreateClient();
-            
+
         }
 
         [Fact]
@@ -71,8 +73,14 @@ namespace NotesAPI.Tests
             var postRequestnote2 = await _client.PostAsync("api/Notes", stringContentnote2);
             postRequestnote2.EnsureSuccessStatusCode();
             var responseString = await postRequestnote2.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Post Response\n" + responseString);
-            
+            var jsonObj = JsonConvert.DeserializeObject<Note>(responseString);
+            postRequest.StatusCode.Should().Be(HttpStatusCode.Created);
+            jsonObj.Title.Should().Be("Note 3");
+            jsonObj.Text.Should().Be("This is Note 3");
+            jsonObj.Pinned.Should().BeFalse();
+            jsonObj.Labels[0].LabelName.Should().Be("Business");
+            jsonObj.Checklists[0].Item.Should().Be("Three");
+            jsonObj.Checklists[1].Item.Should().Be("Four");
         }
 
         [Fact]
@@ -81,7 +89,27 @@ namespace NotesAPI.Tests
             var getRequest = await _client.GetAsync("api/Notes");
             getRequest.EnsureSuccessStatusCode();
             var responseString = await getRequest.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Get Response \n" + responseString);
+            var jsonObj = JsonConvert.DeserializeObject<List<Note>>(responseString);
+            getRequest.StatusCode.Should().Be(HttpStatusCode.OK);
+            jsonObj[0].Title.Should().Be("Note 4");
+            jsonObj[0].Text.Should().Be("This is Note Four");
+            jsonObj[0].Pinned.Should().BeTrue();
+            jsonObj[0].Labels[0].LabelName.Should().Be("Personal");
+            jsonObj[0].Labels[1].LabelName.Should().Be("Trial");
+            jsonObj[0].Checklists[0].Item.Should().Be("One");
+            jsonObj[0].Checklists[1].Item.Should().Be("Two");
+            jsonObj[1].Title.Should().Be("Note 3");
+            jsonObj[1].Text.Should().Be("This is Note 3");
+            jsonObj[1].Pinned.Should().BeFalse();
+            jsonObj[1].Labels[0].LabelName.Should().Be("Business");
+            jsonObj[1].Checklists[0].Item.Should().Be("Three");
+            jsonObj[1].Checklists[1].Item.Should().Be("Four");
+            jsonObj[2].Title.Should().Be("Note 14");
+            jsonObj[2].Text.Should().Be("This is Note Fourteen");
+            jsonObj[2].Pinned.Should().BeFalse();
+            jsonObj[2].Labels[0].LabelName.Should().Be("Business");
+            jsonObj[2].Checklists[0].Item.Should().Be("Three");
+            jsonObj[2].Checklists[1].Item.Should().Be("Four");
         }
 
         [Fact]
@@ -90,7 +118,15 @@ namespace NotesAPI.Tests
             var getRequest = await _client.GetAsync("api/Notes/1");
             getRequest.EnsureSuccessStatusCode();
             var responseString = await getRequest.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Get by ID Response \n" + responseString);
+            var jsonObj = JsonConvert.DeserializeObject<Note>(responseString);
+            getRequest.StatusCode.Should().Be(HttpStatusCode.OK);
+            jsonObj.Title.Should().Be("Note 4");
+            jsonObj.Text.Should().Be("This is Note Four");
+            jsonObj.Pinned.Should().BeTrue();
+            jsonObj.Labels[0].LabelName.Should().Be("Personal");
+            jsonObj.Labels[1].LabelName.Should().Be("Trial");
+            jsonObj.Checklists[0].Item.Should().Be("One");
+            jsonObj.Checklists[1].Item.Should().Be("Two");
         }
 
         [Fact]
@@ -99,7 +135,14 @@ namespace NotesAPI.Tests
             var getRequest = await _client.GetAsync("api/Notes?title=Note 3");
             getRequest.EnsureSuccessStatusCode();
             var responseString = await getRequest.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Get by title Response \n" + responseString);
+            var jsonObj = JsonConvert.DeserializeObject<List<Note>>(responseString);
+            getRequest.StatusCode.Should().Be(HttpStatusCode.OK);
+            jsonObj[0].Title.Should().Be("Note 3");
+            jsonObj[0].Text.Should().Be("This is Note 3");
+            jsonObj[0].Pinned.Should().BeFalse();
+            jsonObj[0].Labels[0].LabelName.Should().Be("Business");
+            jsonObj[0].Checklists[0].Item.Should().Be("Three");
+            jsonObj[0].Checklists[1].Item.Should().Be("Four");
         }
 
         [Fact]
@@ -108,7 +151,15 @@ namespace NotesAPI.Tests
             var getRequest = await _client.GetAsync("api/Notes?pinned=true");
             getRequest.EnsureSuccessStatusCode();
             var responseString = await getRequest.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Get by pinned Response \n" + responseString);
+            var jsonObj = JsonConvert.DeserializeObject<List<Note>>(responseString);
+            getRequest.StatusCode.Should().Be(HttpStatusCode.OK);
+            jsonObj[0].Title.Should().Be("Note 4");
+            jsonObj[0].Text.Should().Be("This is Note Four");
+            jsonObj[0].Pinned.Should().BeTrue();
+            jsonObj[0].Labels[0].LabelName.Should().Be("Personal");
+            jsonObj[0].Labels[1].LabelName.Should().Be("Trial");
+            jsonObj[0].Checklists[0].Item.Should().Be("One");
+            jsonObj[0].Checklists[1].Item.Should().Be("Two");
         }
 
         [Fact]
@@ -135,7 +186,14 @@ namespace NotesAPI.Tests
             var getRequest = await _client.GetAsync("api/Notes?label=Business");
             getRequest.EnsureSuccessStatusCode();
             var responseString = await getRequest.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Get by Label Response \n" + responseString);
+            var jsonObj = JsonConvert.DeserializeObject<List<Note>>(responseString);
+            getRequest.StatusCode.Should().Be(HttpStatusCode.OK);
+            jsonObj[0].Title.Should().Be("Note 14");
+            jsonObj[0].Text.Should().Be("This is Note Fourteen");
+            jsonObj[0].Pinned.Should().BeFalse();
+            jsonObj[0].Labels[0].LabelName.Should().Be("Business");
+            jsonObj[0].Checklists[0].Item.Should().Be("Three");
+            jsonObj[0].Checklists[1].Item.Should().Be("Four");
         }
 
         [Fact]
@@ -143,7 +201,7 @@ namespace NotesAPI.Tests
         {
             var note = new Note()
             {
-                ID = 1, 
+                ID = 1,
                 Title = "Note 4",
                 Text = "This is Note Four",
                 Checklists = new List<Checklist>
@@ -163,7 +221,15 @@ namespace NotesAPI.Tests
             putRequest.EnsureSuccessStatusCode();
             var getRequest = await _client.GetAsync("api/Notes/1");
             var responseString = await getRequest.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Put Response \n" + responseString);
+            var jsonObj = JsonConvert.DeserializeObject<Note>(responseString);
+            putRequest.StatusCode.Should().Be(HttpStatusCode.NoContent);
+            jsonObj.Title.Should().Be("Note 4");
+            jsonObj.Text.Should().Be("This is Note Four");
+            jsonObj.Pinned.Should().BeTrue();
+            jsonObj.Labels[0].LabelName.Should().Be("Personal");
+            jsonObj.Labels[1].LabelName.Should().Be("Trial");
+            jsonObj.Checklists[0].Item.Should().Be("One");
+            jsonObj.Checklists[1].Item.Should().Be("Two");
         }
 
         [Fact]
@@ -188,14 +254,18 @@ namespace NotesAPI.Tests
             };
             var stringContent = new StringContent(JsonConvert.SerializeObject(note), UnicodeEncoding.UTF8, "application/json");
             var postRequest = await _client.PostAsync("api/Notes", stringContent);
-            //var responseString1 = await postRequest.Content.ReadAsStringAsync();
-            //Console.WriteLine("This is Get Delete Response \n" + responseString1);
-            //await Post();
             var deleteRequest = await _client.DeleteAsync("api/Notes/12");
             deleteRequest.EnsureSuccessStatusCode();
-            //var getRequest = await _client.GetAsync("api/Notes/1");
             var responseString = await deleteRequest.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Delete By ID Response \n" + responseString);
+            var jsonObj = JsonConvert.DeserializeObject<Note>(responseString);
+            deleteRequest.StatusCode.Should().Be(HttpStatusCode.OK);
+            jsonObj.Title.Should().Be("Note 4");
+            jsonObj.Text.Should().Be("This is Note Four");
+            jsonObj.Pinned.Should().BeTrue();
+            jsonObj.Labels[0].LabelName.Should().Be("Personal");
+            jsonObj.Labels[1].LabelName.Should().Be("Trial");
+            jsonObj.Checklists[0].Item.Should().Be("One");
+            jsonObj.Checklists[1].Item.Should().Be("Two");
         }
 
         [Fact]
@@ -220,14 +290,18 @@ namespace NotesAPI.Tests
             };
             var stringContent = new StringContent(JsonConvert.SerializeObject(note), UnicodeEncoding.UTF8, "application/json");
             var postRequest = await _client.PostAsync("api/Notes", stringContent);
-            //var responseString1 = await postRequest.Content.ReadAsStringAsync();
-            //Console.WriteLine("This is Get Delete Response \n" + responseString1);
-            //await Post();
             var deleteRequest = await _client.DeleteAsync("api/Notes?title=Note 15");
             deleteRequest.EnsureSuccessStatusCode();
-            //var getRequest = await _client.GetAsync("api/Notes/1");
             var responseString = await deleteRequest.Content.ReadAsStringAsync();
-            Console.WriteLine("This is Delete By Title Response \n" + responseString);
+            var jsonObj = JsonConvert.DeserializeObject<List<Note>>(responseString);
+            deleteRequest.StatusCode.Should().Be(HttpStatusCode.OK);
+            jsonObj[0].Title.Should().Be("Note 15");
+            jsonObj[0].Text.Should().Be("This is Note Fifteen");
+            jsonObj[0].Pinned.Should().BeTrue();
+            jsonObj[0].Labels[0].LabelName.Should().Be("Personal");
+            jsonObj[0].Labels[1].LabelName.Should().Be("Trial");
+            jsonObj[0].Checklists[0].Item.Should().Be("One");
+            jsonObj[0].Checklists[1].Item.Should().Be("Two");
         }
     }
 }

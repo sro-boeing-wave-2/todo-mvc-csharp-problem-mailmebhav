@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NotesAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static NotesAPI.Services.NotesService;
 
 namespace NotesAPI.Services
 {
@@ -19,8 +17,11 @@ namespace NotesAPI.Services
         }
         public async Task<IEnumerable<Note>> GetNotes(string title, string label, bool? pinned)
         {
-            var result = await _context.Note.Include(n => n.Checklists).Include(n => n.Labels)
-            .Where(x => ((title == null || x.Title == title) && (label == null || x.Labels.Any(y => y.LabelName == label)) && (pinned == null || x.Pinned == pinned))).ToListAsync();
+
+           var result = await _context.Note.Include(n => n.Checklists).Include(n => n.Labels)
+            .Where(x => ((string.IsNullOrEmpty(title) || x.Title == title) 
+            && (string.IsNullOrEmpty(label) || x.Labels.Any(y => y.LabelName == label)) 
+            && (!pinned.HasValue || x.Pinned == pinned))).ToListAsync();
             return result;
         }
 
@@ -34,14 +35,14 @@ namespace NotesAPI.Services
         {
             _context.Note.Update(notes);
             await _context.SaveChangesAsync();
-            return await Task.FromResult(notes);
+            return notes;
         }
 
         public async Task<Note> PostNotes(Note notes)
         {
             _context.Note.Add(notes);
             await _context.SaveChangesAsync();
-            return await Task.FromResult(notes);
+            return notes;
         }
 
         public async Task<Note> DeleteNotes(int id)
@@ -49,7 +50,7 @@ namespace NotesAPI.Services
             var notes = await _context.Note.Include(x => x.Checklists).Include(x => x.Labels).SingleOrDefaultAsync(x => (x.ID == id));
             if (notes == null)
             {
-                return await Task.FromResult<Note>(null);
+                return null;
             }
             _context.Note.Remove(notes);
             await _context.SaveChangesAsync();
@@ -61,7 +62,7 @@ namespace NotesAPI.Services
             var notes = await _context.Note.Include(x => x.Checklists).Include(x => x.Labels).Where(x => (x.Title == title)).ToListAsync();
             if (notes == null)
             {
-                return await Task.FromResult<IEnumerable<Note>>(null);
+                return null;
             }
             _context.Note.RemoveRange(notes);
             await _context.SaveChangesAsync();
