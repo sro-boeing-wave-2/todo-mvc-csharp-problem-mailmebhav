@@ -12337,11 +12337,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Workspace\\todo-mvc-csharp-problem-mailmebhav\\NotesAPI\\NotesAPI.csproj",
+      "projectUniqueName": "E:\\Workspace\\docker-practice\\todo-mvc-csharp-problem-mailmebhav\\NotesAPI\\NotesAPI.csproj",
       "projectName": "NotesAPI",
-      "projectPath": "E:\\Workspace\\todo-mvc-csharp-problem-mailmebhav\\NotesAPI\\NotesAPI.csproj",
+      "projectPath": "E:\\Workspace\\docker-practice\\todo-mvc-csharp-problem-mailmebhav\\NotesAPI\\NotesAPI.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "E:\\Workspace\\todo-mvc-csharp-problem-mailmebhav\\NotesAPI\\obj\\",
+      "outputPath": "E:\\Workspace\\docker-practice\\todo-mvc-csharp-problem-mailmebhav\\NotesAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
