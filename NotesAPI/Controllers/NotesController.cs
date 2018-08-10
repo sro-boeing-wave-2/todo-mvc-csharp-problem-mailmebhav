@@ -128,7 +128,7 @@ namespace NotesApi.Controllers
             return Ok(notes);
         }
 
-        public bool NotesExists(int id)
+        private bool NotesExists(int id)
         {
             var result = _NotesServices.NotesExists(id);
             return result;
