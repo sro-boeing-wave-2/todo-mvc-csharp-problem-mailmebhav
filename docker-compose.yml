@@ -1,0 +1,13 @@
+version: '3'
+services:
+  db:
+    image: "microsoft/mssql-server-linux"
+    environment:
+      SA_PASSWORD: "YourStrongP@ssword"
+      ACCEPT_EULA: "Y"
+  web:
+    build: ./NotesAPI
+    ports:
+      - "5012:80"
+    depends_on:
+      - db

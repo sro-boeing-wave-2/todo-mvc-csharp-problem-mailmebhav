@@ -40,7 +40,7 @@ namespace NotesAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<NotesAPIContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("NotesAPIContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("NotesAPIContext"), dbOptions => dbOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null)));
 
             services.AddScoped<INotesService , NotesService>();
 
@@ -51,7 +51,7 @@ namespace NotesAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, NotesAPIContext context)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +71,7 @@ namespace NotesAPI
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            context.Database.Migrate();
         }
     }
 }
