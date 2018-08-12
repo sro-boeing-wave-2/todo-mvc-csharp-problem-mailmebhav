@@ -26,3 +26,17 @@ E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.pdb
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.RazorTargetAssemblyInfo.cache
 E:\Workspace\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.csprojAssemblyReference.cache
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.deps.json
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.runtimeconfig.json
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.runtimeconfig.dev.json
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.dll
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\bin\Debug\netcoreapp2.1\NotesAPI.pdb
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.csprojAssemblyReference.cache
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.csproj.CoreCompileInputs.cache
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.RazorAssemblyInfo.cache
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.RazorAssemblyInfo.cs
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.AssemblyInfoInputs.cache
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.AssemblyInfo.cs
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.RazorTargetAssemblyInfo.cache
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.dll
+E:\Workspace\docker-practice\todo-mvc-csharp-problem-mailmebhav\NotesAPI\obj\Debug\netcoreapp2.1\NotesAPI.pdb
